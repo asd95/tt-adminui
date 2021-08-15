@@ -20,8 +20,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
-  appBar: {
-    backgroundColor: "#1b5e20",
+  toolBar: {
     minHeight: "100%",
   },
   btn: {
@@ -34,7 +33,7 @@ const AppNavbar = () => {
   return (
     <div className={classes.root}>
       <AppBar position="static" elevation={0}>
-        <Toolbar className={classes.appBar}>
+        <Toolbar className={classes.toolBar}>
           <IconButton
             edge="start"
             className={classes.menuButton}
