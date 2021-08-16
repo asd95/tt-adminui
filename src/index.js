@@ -17,13 +17,11 @@ const uiTheme = createTheme({
   },
 });
 ReactDOM.render(
-  <React.StrictMode>
     <ThemeProvider theme={uiTheme}>
       <Router>
         <App />
       </Router>
-    </ThemeProvider>
-  </React.StrictMode>,
+    </ThemeProvider>,
   document.getElementById("root")
 );
 reportWebVitals();

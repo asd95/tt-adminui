@@ -6,16 +6,19 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import DonutSmallIcon from "@material-ui/icons/DonutSmall";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    position: 'sticky',
+    top: 0,
   },
   menuButton: {
     marginRight: theme.spacing(1),
   },
   icon: {
-      fontSize: 36
+    fontSize: 36,
   },
   title: {
     flexGrow: 1,
@@ -24,12 +27,13 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "100%",
   },
   btn: {
-      textTransform: 'capitalize'
-  }
+    textTransform: "capitalize",
+  },
 }));
 
 const AppNavbar = () => {
   const classes = useStyles();
+  const history = useHistory();
   return (
     <div className={classes.root}>
       <AppBar position="static" elevation={0}>
@@ -39,6 +43,7 @@ const AppNavbar = () => {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
+            onClick={()=> history.push('/dashboard/chart')}
           >
             <DonutSmallIcon className={classes.icon} />
           </IconButton>

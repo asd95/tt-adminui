@@ -1,11 +1,13 @@
 import React from "react";
 import AppSideBar from "./AppSidebar";
-import { makeStyles, Typography } from "@material-ui/core";
-
+import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) => {
   return {
     root: {
       display: "flex",
+    },
+    pages: {
+      flex: 1,
     },
   };
 });
@@ -15,7 +17,7 @@ const Layout = ({ children }) => {
   return (
     <div className={classes.root}>
       <AppSideBar />
-      <div>{children}</div>
+      <div className={classes.pages}>{children}</div>
     </div>
   );
 };

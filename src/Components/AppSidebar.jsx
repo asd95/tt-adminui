@@ -1,4 +1,4 @@
-import React,{ Fragment }  from "react";
+import React, { Fragment } from "react";
 import { makeStyles, Drawer, Typography } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -26,22 +26,28 @@ const useStyles = makeStyles((theme) => {
   };
 });
 
+const getUrl = (location) => {
+  let url = location.pathname.split("/").pop();
+  return url ? url : "chart";
+};
+
 const AppSidebar = () => {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
+  const url = getUrl(location);
   const menuItems = [
     {
       text: "Dashboard",
       icon: <SpeedIcon color="inherit" />,
-      path: "/",
+      path: `/dashboard/${url}`,
     },
     {
       text: "Suport",
       icon: <SupportIcon color="inherit" />,
-      path: "/suport",
+      path: "/suport/",
     },
-];
+  ];
 
   return (
     <Fragment>
@@ -50,7 +56,6 @@ const AppSidebar = () => {
         variant="permanent"
         anchor="left"
         classes={{ paper: classes.drawerPaper }}
-        elevation={10}
       >
         {/* list / links */}
         <List>
@@ -69,7 +74,7 @@ const AppSidebar = () => {
               <ListItemText
                 disableTypography
                 primary={
-                  <Typography type="body2" style={{ fontWeight: "500" }}>
+                  <Typography variant="subtitle2" style={{ fontWeight: "500" }}>
                     {item.text}
                   </Typography>
                 }
