@@ -6,7 +6,6 @@ import {
 } from "@material-ui/pickers";
 
 const MaterialUIPickers = ({ onChange, onBlur, selected }) => {
-
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker

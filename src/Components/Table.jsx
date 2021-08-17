@@ -14,11 +14,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function BasicTable({ rows, tableHead }) {
+export default function BasicTable({ rows, tableHead, ...props }) {
   const classes = useStyles();
-
   return (
-    <TableContainer component={Paper} style={{ boxShadow: "none" }}>
+    <TableContainer component={Paper} {...props}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -28,18 +27,21 @@ export default function BasicTable({ rows, tableHead }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, idx) => (
-            <TableRow key={idx}>
-              <TableCell component="th" scope="row">
-                {row[0]}
-              </TableCell>
-              {row
-                .filter((item, idx) => idx > 0)
-                .map((item, idx) => (
-                  <TableCell key={item[idx]}>{item}</TableCell>
-                ))}
-            </TableRow>
-          ))}
+          {rows.map((row, idx) => {
+            const keys = Object.keys(row);
+            return (
+              <TableRow key={idx}>
+                <TableCell component="th" scope="row">
+                  {row[keys[0]]}
+                </TableCell>
+                {keys
+                  .filter((key, idx) => idx > 0)
+                  .map((key, idx) => (
+                    <TableCell key={key[idx]}>{row[key]}</TableCell>
+                  ))}
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

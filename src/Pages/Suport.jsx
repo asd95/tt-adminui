@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Typography, makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -33,27 +33,27 @@ const useStyles = makeStyles((theme) => {
 });
 
 const rows = [
-  [
-    "John Doe",
-    "20542345876542",
-    "+373 794 456969",
-    "2019 3820 2323 4477",
-    "14:45 12/12/18",
-  ],
-  [
-    "John Doe",
-    "20542345876542",
-    "+373 794 456969",
-    "2019 3820 2323 4477",
-    "14:45 12/12/18",
-  ],
-  [
-    "John Doe",
-    "20542345876542",
-    "+373 794 456969",
-    "2019 3820 2323 4477",
-    "14:45 12/12/18",
-  ],
+  {
+    name: "John Doe",
+    idnp: "20542345876542",
+    tel: "373794456969",
+    "pan card": "2019 3820 2323 4477",
+    "last transaction": "14:45 12/12/18",
+  },
+  {
+    name: "John Doe",
+    idnp: "20542345876542",
+    tel: "373794456969",
+    "pan card": "2019 3820 2323 4477",
+    "last transaction": "14:45 12/12/18",
+  },
+  {
+    name: "John Doe",
+    idnp: "20542345876542",
+    tel: "373794456969",
+    "pan card": "2019 3820 2323 4477",
+    "last transaction": "14:45 12/12/18",
+  },
 ];
 const tableHead = [
   "Nume Prenume",
@@ -64,7 +64,7 @@ const tableHead = [
 ];
 
 const schema = yup.object().shape({
-  idnp: yup.string().matches(/^[0-9]{0,14}$/, "Only and no more 14 numbers"),
+  idnp: yup.string().matches(/(^$)|^[0-9]{14}$/, "Input 14 numbers"),
   tel: yup
     .string()
     .matches(/(^$)|^((3737|3736)([0-9]){7})$/, "input valid phone number"),
@@ -123,7 +123,7 @@ const Suport = () => {
           <Controller
             control={control}
             name="date"
-            render={({ field: { onChange, onBlur, value } }) => (
+            render={({ field: { onChange, onBlur, value = null } }) => (
               <DataPicker
                 onChange={onChange}
                 onBlur={onBlur}
@@ -153,7 +153,11 @@ const Suport = () => {
             Rezultate cautare: John Doe
           </Typography>
 
-          <BasicTable rows={rows} tableHead={tableHead} />
+          <BasicTable
+            rows={rows}
+            tableHead={tableHead}
+            style={{ boxShadow: "none" }}
+          />
         </div>
       </div>
     </div>
