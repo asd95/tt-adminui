@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import HeaderContainer from "../Components/HeaderContainer";
 import BasicTable from "../Components/Table";
 import DataPicker from "../Components/DataPicker";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 const useStyles = makeStyles((theme) => {
@@ -68,12 +68,12 @@ const schema = yup.object().shape({
   tel: yup
     .string()
     .matches(/(^$)|^((3737|3736)([0-9]){7})$/, "input valid phone number"),
-  date: yup.date(),
 });
 
 const Suport = () => {
   const classes = useStyles();
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -81,10 +81,10 @@ const Suport = () => {
     mode: "onBlur",
     resolver: yupResolver(schema),
   });
-
   const onSubmit = (data) => {
+    console.log(data);
   };
-  
+
   return (
     <div>
       <HeaderContainer>
@@ -120,8 +120,17 @@ const Suport = () => {
             {...register("tel", { required: true })}
             error={!!errors.tel}
           />
-
-          <DataPicker {...register("date", { required: true })} />
+          <Controller
+            control={control}
+            name="date"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <DataPicker
+                onChange={onChange}
+                onBlur={onBlur}
+                selected={value}
+              />
+            )}
+          />
 
           <Button
             type="submit"
