@@ -11,13 +11,21 @@ class Service {
     }
     return res.json();
   };
+
   getUsers = async (data = null) => {
-    const res = await this.getResource("users");
     if (!data) {
-      return res
+      return [];
     }
+    if (
+      (data.idnp === undefined || data.idnp === "") &&
+      (data.tel === undefined || data.tel === "")
+    ) {
+      return [];
+    }
+    const res = await this.getResource("users");
     return searchUser(res, data);
   };
+  
   getMonitoringData = async () => {
     const res = await this.getResource("monitoring");
     return res;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Typography, makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -62,9 +62,10 @@ const Suport = ({ service }) => {
   const onSubmit = (data) => {
     service.getUsers(data).then((fetchData) => setUserData(fetchData));
   };
-  useEffect(() => {
-    service.getUsers().then((fetchData) => setUserData(fetchData));
-  }, []);
+
+  // React.useEffect(() => {
+  //   service.getUsers().then((fetchData) => setUserData(fetchData));
+  // }, []);
   return (
     <div>
       <HeaderContainer>
@@ -130,7 +131,7 @@ const Suport = ({ service }) => {
             color="initial"
             style={{ fontWeight: "500" }}
           >
-            Rezultate cautare: John Doe
+            Rezultate cautare: {userData.length === 0 ? null : userData[0].name}
           </Typography>
 
           <BasicTable

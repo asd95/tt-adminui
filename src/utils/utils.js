@@ -1,10 +1,4 @@
 const searchUser = (res, data) => {
-  if (
-    (data.idnp === undefined || data.idnp === "") &&
-    (data.tel === undefined || data.tel === "")
-  ) {
-    return res;
-  }
   const results = res
     .filter((item) => {
       if (data.idnp === undefined || data.idnp === "") {
