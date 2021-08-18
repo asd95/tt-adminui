@@ -3,6 +3,9 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 import App from "./Components/App";
+import { ServiceProvider } from "./service/service-context";
+import Service from "./service/service";
+
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 
@@ -16,12 +19,15 @@ const uiTheme = createTheme({
     },
   },
 });
+const service = new Service();
 ReactDOM.render(
-    <ThemeProvider theme={uiTheme}>
+  <ThemeProvider theme={uiTheme}>
+    <ServiceProvider value={service}>
       <Router>
         <App />
       </Router>
-    </ThemeProvider>,
+    </ServiceProvider>
+  </ThemeProvider>,
   document.getElementById("root")
 );
 reportWebVitals();

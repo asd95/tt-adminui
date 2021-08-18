@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -7,6 +7,7 @@ import BasicTable from "../Components/Table";
 import DataPicker from "../Components/DataPicker";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { withService } from "../HOC/with-service";
 import * as yup from "yup";
 const useStyles = makeStyles((theme) => {
   return {
@@ -31,30 +32,6 @@ const useStyles = makeStyles((theme) => {
     },
   };
 });
-
-const rows = [
-  {
-    name: "John Doe",
-    idnp: "20542345876542",
-    tel: "373794456969",
-    "pan card": "2019 3820 2323 4477",
-    "last transaction": "14:45 12/12/18",
-  },
-  {
-    name: "John Doe",
-    idnp: "20542345876542",
-    tel: "373794456969",
-    "pan card": "2019 3820 2323 4477",
-    "last transaction": "14:45 12/12/18",
-  },
-  {
-    name: "John Doe",
-    idnp: "20542345876542",
-    tel: "373794456969",
-    "pan card": "2019 3820 2323 4477",
-    "last transaction": "14:45 12/12/18",
-  },
-];
 const tableHead = [
   "Nume Prenume",
   "IDNP",
@@ -70,8 +47,9 @@ const schema = yup.object().shape({
     .matches(/(^$)|^((3737|3736)([0-9]){7})$/, "input valid phone number"),
 });
 
-const Suport = () => {
+const Suport = ({ service }) => {
   const classes = useStyles();
+  const [userData, setUserData] = useState([]);
   const {
     control,
     register,
@@ -82,9 +60,11 @@ const Suport = () => {
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-    console.log(data);
+    service.getUsers(data).then((fetchData) => setUserData(fetchData));
   };
-
+  useEffect(() => {
+    service.getUsers().then((fetchData) => setUserData(fetchData));
+  }, []);
   return (
     <div>
       <HeaderContainer>
@@ -154,7 +134,7 @@ const Suport = () => {
           </Typography>
 
           <BasicTable
-            rows={rows}
+            rows={userData}
             tableHead={tableHead}
             style={{ boxShadow: "none" }}
           />
@@ -164,4 +144,4 @@ const Suport = () => {
   );
 };
 
-export default Suport;
+export default withService()(Suport);

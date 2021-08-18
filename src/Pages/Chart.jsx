@@ -36,21 +36,37 @@ const rows = [
     date: "01/08/2020",
     totalUser: "79",
     uniqueUsers: "11",
+    id: 1,
   },
   {
     date: "02/08/2020",
     totalUser: "100",
     uniqueUsers: "32",
+    id: 2,
   },
   {
     date: "03/08/2020",
     totalUser: "58",
     uniqueUsers: "05",
+    id: 3,
   },
   {
     date: "04/08/2020",
     totalUser: "44",
     uniqueUsers: "22",
+    id: 4,
+  },
+  {
+    date: "05/08/2020",
+    totalUser: "85",
+    uniqueUsers: "24",
+    id: 5,
+  },
+  {
+    date: "06/08/2020",
+    totalUser: "65",
+    uniqueUsers: "31",
+    id: 6,
   },
 ];
 const tableHead = [
