@@ -62,10 +62,6 @@ const Suport = ({ service }) => {
   const onSubmit = (data) => {
     service.getUsers(data).then((fetchData) => setUserData(fetchData));
   };
-
-  // React.useEffect(() => {
-  //   service.getUsers().then((fetchData) => setUserData(fetchData));
-  // }, []);
   return (
     <div>
       <HeaderContainer>

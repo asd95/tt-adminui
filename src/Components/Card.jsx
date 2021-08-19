@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function SimpleCard() {
+export default function SimpleCard({cardData}) {
   const classes = useStyles();
 
   return (
@@ -34,9 +34,9 @@ export default function SimpleCard() {
 
         <Typography variant="body2" component="p">
           <Typography className={classes.activeNumber} component="span">
-            5,489
+            {!cardData ? null : cardData.instActive}
           </Typography>{" "}
-          +3.79% vs previous 30days
+          {cardData.percent}% vs previous 30days
         </Typography>
       </CardContent>
     </Card>

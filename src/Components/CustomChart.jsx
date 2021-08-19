@@ -9,25 +9,16 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const data = [
-  {
-    name: "01/08/2020",
-    uv: 79,
-  },
-  {
-    name: "02/08/2020",
-    uv: 100,
-  },
-  {
-    name: "03/08/2020",
-    uv: 58,
-  },
-  {
-    name: "04/08/2020",
-    uv: 44,
-  },
-];
-const CustomChart = () => {
+const onTransformData = (data) => {
+  return data.map((item) => {
+    return {
+      name: item.date,
+      utilizatori: item.totalUsers,
+    };
+  });
+};
+const CustomChart = ({ dataChart }) => {
+  const data = onTransformData(dataChart);
   return (
     <ResponsiveContainer width="100%" aspect={4 / 1}>
       <AreaChart
@@ -42,10 +33,24 @@ const CustomChart = () => {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
+        <XAxis
+          dataKey="name"
+          style={{
+            fontSize: ".8rem",
+          }}
+        />
+        <YAxis
+          style={{
+            fontSize: ".8rem",
+          }}
+        />
         <Tooltip />
-        <Area type="monotone" dataKey="uv" stroke="#036647" fill="#036647" />
+        <Area
+          type="monotone"
+          dataKey="utilizatori"
+          stroke="#036647"
+          fill="#036647"
+        />
       </AreaChart>
     </ResponsiveContainer>
   );

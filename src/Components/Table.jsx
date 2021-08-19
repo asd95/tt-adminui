@@ -35,7 +35,7 @@ export default function BasicTable({ rows, tableHead, ...props }) {
                 return (
                   <TableRow key={idx}>
                     <TableCell component="th" scope="row">
-                      {`${row[keys[0]]} ${row[keys[1]]}`}
+                      {`${row[keys[0]]}`}
                     </TableCell>
                     {keys
                       .filter((key, idx) => idx > 0)

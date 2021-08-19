@@ -1,58 +1,64 @@
 {
   "monitoring": [
     {
-      "date": "01/08/2020",
-      "totalUser": "79",
-      "uniqueUsers": "11",
+      "date": "09/07/2021",
+      "totalUsers": "67",
+      "uniqueUsers": "23",
       "id": 1
     },
     {
-      "date": "02/08/2020",
-      "totalUser": "100",
-      "uniqueUsers": "32",
+      "date": "01/08/2021",
+      "totalUsers": "79",
+      "uniqueUsers": "11",
       "id": 2
     },
     {
-      "date": "03/08/2020",
-      "totalUser": "58",
-      "uniqueUsers": "05",
+      "date": "02/08/2021",
+      "totalUsers": "100",
+      "uniqueUsers": "32",
       "id": 3
     },
     {
-      "date": "04/08/2020",
-      "totalUser": "44",
-      "uniqueUsers": "22",
+      "date": "03/08/2021",
+      "totalUsers": "58",
+      "uniqueUsers": "05",
       "id": 4
     },
     {
-      "date": "05/08/2020",
-      "totalUser": "85",
-      "uniqueUsers": "24",
+      "date": "04/08/2021",
+      "totalUsers": "44",
+      "uniqueUsers": "22",
       "id": 5
     },
     {
-      "date": "06/08/2020",
-      "totalUser": "65",
-      "uniqueUsers": "31",
+      "date": "05/08/2021",
+      "totalUsers": "85",
+      "uniqueUsers": "24",
       "id": 6
     },
     {
-      "date": "07/08/2020",
-      "totalUser": "87",
-      "uniqueUsers": "16",
+      "date": "06/08/2021",
+      "totalUsers": "65",
+      "uniqueUsers": "31",
       "id": 7
     },
     {
-      "date": "08/08/2020",
-      "totalUser": "95",
-      "uniqueUsers": "30",
+      "date": "07/08/2021",
+      "totalUsers": "87",
+      "uniqueUsers": "16",
       "id": 8
     },
     {
-      "date": "09/08/2020",
-      "totalUser": "79",
-      "uniqueUsers": "11",
+      "date": "08/08/2021",
+      "totalUsers": "95",
+      "uniqueUsers": "30",
       "id": 9
+    },
+    {
+      "date": "09/08/2021",
+      "totalUsers": "19",
+      "uniqueUsers": "7",
+      "id": 10
     }
   ],
   "users": [

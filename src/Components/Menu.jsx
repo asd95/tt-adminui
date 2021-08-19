@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimpleMenu() {
+export default function SimpleMenu({ onDateRange, lastDays, daysRange} ) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [dateRange, setDateRange] = useState([
@@ -47,11 +47,12 @@ export default function SimpleMenu() {
   useEffect(() => {
     if (dateRange[0].endDate) {
       setOpen(false);
+      onDateRange(dateRange);
       setDateRange([
         { startDate: new Date(), endDate: null, key: "selection" },
       ]);
     }
-  }, [dateRange]);
+  }, [dateRange, onDateRange]);
   return (
     <Card className={classes.root}>
       <CardActionArea onClick={() => setOpen(!open)}>
@@ -61,14 +62,15 @@ export default function SimpleMenu() {
             component="p"
             style={{ fontSize: "12px" }}
           >
-            Last 30 days
+            Last {lastDays} days
           </Typography>
           <Typography
             variant="body2"
             component="p"
             style={{ fontSize: "14px" }}
-          >
-            17 Aug 2021 - 21 Sep 2021
+          >{
+            daysRange ? `${daysRange.startDate} - ${daysRange.endDate}` : null
+          }
           </Typography>
           <div className={classes.iconWrap}>
             {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}

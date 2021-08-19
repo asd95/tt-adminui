@@ -1,4 +1,9 @@
-import { searchUser } from "../utils/utils";
+import {
+  searchUser,
+  filterRangeDate,
+  defaultRangeDate,
+  createMonitoringData,
+} from "../utils/utils";
 
 class Service {
   _apiBase = "http://localhost:8000";
@@ -25,10 +30,27 @@ class Service {
     const res = await this.getResource("users");
     return searchUser(res, data);
   };
-  
-  getMonitoringData = async () => {
-    const res = await this.getResource("monitoring");
-    return res;
+
+  getMonitoringData = async (dateRange) => {
+    let res = await this.getResource("monitoring");
+    if (dateRange === null) {
+      return defaultRangeDate(res);
+    }
+    return filterRangeDate(res, dateRange);
+  };
+
+  postNewData = async () => {
+    let res = await this.getResource("monitoring");
+
+    const doc = createMonitoringData(res);
+    console.log(JSON.stringify(doc));
+    await fetch(`${this._apiBase}/monitoring`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(doc),
+    });
   };
 }
 
