@@ -13,7 +13,8 @@ const App = () => {
         <Switch>
           <Route exact path="/" render={() => <Redirect to="/dashboard/chart"/>} />
           <Route path="/dashboard/:page?" component={Dashboard} />
-          <Route path="/suport" component={Suport} />
+          <Route exact path="/suport" component={Suport} />
+          <Redirect to="/dashboard/chart"/>
         </Switch>
       </Layout>
     </div>

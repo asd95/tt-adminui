@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Typography, makeStyles } from "@material-ui/core";
 import HeaderContainer from "../Components/HeaderContainer";
 import DashboardNavbar from "../Components/DashboardNavbar";
-import { Switch, Route } from "react-router";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Chart from "../Pages/Chart";
 import Report from "../Pages/Report";
 
@@ -28,12 +28,13 @@ const Dashboard = () => {
       </HeaderContainer>
       <div>
         <Switch>
-          <Route path="/dashboard/chart">
+          <Route exact path="/dashboard/chart">
             <Chart />
           </Route>
-          <Route path="/dashboard/report">
+          <Route exact path="/dashboard/report">
             <Report />
           </Route>
+          <Redirect to="/dashboard/chart" />
         </Switch>
       </div>
     </Fragment>
