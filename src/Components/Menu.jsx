@@ -34,7 +34,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimpleMenu({ onDateRange, lastDays, daysRange} ) {
+export default function SimpleMenu({
+  onDateRange,
+  monitoringData: { lastDays, startDate, endDate },
+}) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [dateRange, setDateRange] = useState([
@@ -68,9 +71,8 @@ export default function SimpleMenu({ onDateRange, lastDays, daysRange} ) {
             variant="body2"
             component="p"
             style={{ fontSize: "14px" }}
-          >{
-            daysRange ? `${daysRange.startDate} - ${daysRange.endDate}` : null
-          }
+          >
+            {lastDays ? `${startDate} - ${endDate}` : null}
           </Typography>
           <div className={classes.iconWrap}>
             {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}

@@ -29,12 +29,6 @@ const useStyles = makeStyles((theme) => {
       justifyContent: "space-between",
       marginBottom: ".5em",
     },
-    optionalMess: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      fontWeight: "bold",
-    },
   };
 });
 const tableHead = [
@@ -44,7 +38,7 @@ const tableHead = [
 ];
 const Chart = ({ service }) => {
   const classes = useStyles();
-  const [monitoringData, setMonitoringData] = useState([[]]);
+  const [monitoringData, setMonitoringData] = useState({});
   const [dateRange, setDateRange] = useState(null);
   const onDateRange = (dateRange) => {
     setDateRange(dateRange);
@@ -52,42 +46,29 @@ const Chart = ({ service }) => {
 
   // обновление каждые 10 секунд
   useEffect(() => {
-    const fetchService = () => {
-      service
-        .getMonitoringData(null)
-        .then((fetchData) => setMonitoringData(fetchData));
-    };
-    let i = 1;
-    const seti = setInterval(function () {
-      fetchService(i);
-    }, 10000);
+    const seti = setInterval(
+      () =>
+        service
+          .getMonitoringData(null)
+          .then((fetchData) => setMonitoringData(fetchData)),
+      10000
+    );
     return () => clearInterval(seti);
   }, [dateRange, service]);
   // обновление состояние страницы при выборе диапазона между двумя датами
   useEffect(() => {
     let canceled = false;
-    const fetchService = () => {
-      service
-        .getMonitoringData(dateRange)
-        .then((fetchData) => !canceled && setMonitoringData(fetchData));
-    };
-    fetchService();
+    service
+      .getMonitoringData(dateRange)
+      .then((fetchData) => !canceled && setMonitoringData(fetchData));
     return () => (canceled = true);
   }, [dateRange, service]);
   // Каждые 25 секунд добавляется новые данные для поля мониторинга в файле mock-data.json
   // сделал для того чтобы иммитировать загрузок за день
   useEffect(() => {
-    function setData() {
-      service.postNewData();
-    }
-    let i = 1;
-    const seti = setInterval(function () {
-      console.log('POSTDATA')
-      setData(i);
-    }, 25000);
+    const seti = setInterval(() => service.postNewData(), 25000);
     return () => clearInterval(seti);
   }, []);
-
   return (
     <div className={classes.root}>
       <div className={classes.flexContainer}>
@@ -102,26 +83,14 @@ const Chart = ({ service }) => {
 
         <Menu
           onDateRange={onDateRange}
-          lastDays={monitoringData[1]}
-          daysRange={monitoringData[2]}
+          monitoringData={monitoringData}
         />
       </div>
 
-      {monitoringData[0].length === 0 ? (
-        <div className={classes.optionalMess}>
-          <Typography variant="body1" color="secondary">
-            Nu sunt date in range dat:
-          </Typography>
-          <Typography variant="subtitle2" color="secondary">
-            {monitoringData[2]
-              ? `${monitoringData[2].sd} - ${monitoringData[2].ed}`
-              : null}
-          </Typography>
-        </div>
-      ) : (
+      {monitoringData.arr && (
         <React.Fragment>
           <div className={classes.container}>
-            <SimpleCard cardData={monitoringData[3]} />
+            <SimpleCard cardData={monitoringData} />
           </div>
 
           <Card className={classes.container}>
@@ -141,16 +110,14 @@ const Chart = ({ service }) => {
                   component="h6"
                   style={{ fontWeight: "bold" }}
                 >
-                  {monitoringData[2]
-                    ? `${monitoringData[2].sd} - ${monitoringData[2].ed}`
-                    : null}
+                  {`${monitoringData.sd} - ${monitoringData.ed}`}
                 </Typography>
               </div>
-              <CustomChart dataChart={monitoringData[0]} />
+              <CustomChart dataChart={monitoringData.arr} />
             </CardContent>
           </Card>
           <div className={classes.container}>
-            <BasicTable rows={monitoringData[0]} tableHead={tableHead} />
+            <BasicTable rows={monitoringData.arr} tableHead={tableHead} />
           </div>
         </React.Fragment>
       )}

@@ -19,7 +19,6 @@ const useStyles = makeStyles({
 
 export default function SimpleCard({cardData}) {
   const classes = useStyles();
-
   return (
     <Card className={classes.root}>
       <CardContent>

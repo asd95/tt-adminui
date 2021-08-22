@@ -49,7 +49,7 @@ const schema = yup.object().shape({
 
 const Suport = ({ service }) => {
   const classes = useStyles();
-  const [userData, setUserData] = useState([]);
+  const [userData, setUserData] = useState({});
   const {
     control,
     register,
@@ -127,11 +127,12 @@ const Suport = ({ service }) => {
             color="initial"
             style={{ fontWeight: "500" }}
           >
-            Rezultate cautare: {userData.length === 0 ? null : userData[0].name}
+            Rezultate cautare:{" "}
+            {Array.isArray(userData.arr) && userData.arr[0].name}
           </Typography>
 
           <BasicTable
-            rows={userData}
+            rows={userData.arr}
             tableHead={tableHead}
             style={{ boxShadow: "none" }}
           />

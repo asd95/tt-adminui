@@ -1,19 +1,19 @@
 const searchUser = (res, data) => {
   const results = res
     .filter((item) => {
-      if (data.idnp === undefined || data.idnp === "") {
+      if (!data.tel) {
         return item;
       }
       return item.idnp === data.idnp;
     })
     .filter((item) => {
-      if (data.tel === undefined || data.tel === "") {
+      if (!data.tel) {
         return item;
       }
       return item.tel === data.tel;
     })
     .filter((item) => {
-      if (data.date === undefined || data.date === null) {
+      if (!data.date) {
         return item;
       }
 
@@ -25,7 +25,9 @@ const searchUser = (res, data) => {
       const dateFormatItem = item["last transaction"].split(" ")[1];
       return dateFormatData === dateFormatItem;
     });
-  return results;
+  return {
+    arr: results,
+  };
 };
 
 const filterRangeDate = (res, dateRange) => {
@@ -72,26 +74,22 @@ function getCommData({ stDate, edDate, arr, res }) {
   // соотношение между установками в диапазоне между которым был введен пользователем и предыдущих 30 дней.
   const percent = findPercent(countActiveInst, countInstPrior);
 
-  return [
+  return {
     arr,
     lastDays,
-    {
-      startDate: fsd,
-      endDate: fed,
-      sd: fsd.slice(0, -4),
-      ed: fed.slice(0, -4),
-    },
-    {
-      instActive: countActiveInst,
-      percent,
-    },
-  ];
+    startDate: fsd,
+    endDate: fed,
+    sd: fsd.slice(0, -4),
+    ed: fed.slice(0, -4),
+    instActive: countActiveInst,
+    percent,
+  };
 }
 
 function createMonitoringData(res) {
   const date = getStringFormatDate(
     getNextDay(parseDate(res[res.length - 1].date))
-    );
+  );
   let totalUsers = randomInteger(10, 120);
   let uniqueUsers = randomInteger(5, totalUsers);
   totalUsers = String(totalUsers);
@@ -99,7 +97,7 @@ function createMonitoringData(res) {
   return {
     date,
     totalUsers,
-    uniqueUsers
+    uniqueUsers,
   };
 }
 

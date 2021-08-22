@@ -27,24 +27,24 @@ export default function BasicTable({ rows, tableHead, ...props }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.length === 0
-            ? null
-            : rows.map((row, idx) => {
-                let keys = Object.keys(row)
-                keys = keys.slice(0, keys.length - 1);
-                return (
-                  <TableRow key={idx}>
-                    <TableCell component="th" scope="row">
-                      {`${row[keys[0]]}`}
-                    </TableCell>
-                    {keys
-                      .filter((key, idx) => idx > 0)
-                      .map((key, idx) => (
-                        <TableCell key={key[idx]}>{row[key]}</TableCell>
-                      ))}
-                  </TableRow>
-                );
-              })}
+          {/* Array.isArray(). Вместо этого нужно прописать prop-types. Как и во всем компонентах */}
+          {Array.isArray(rows) &&
+            rows.map((row, idx) => {
+              let keys = Object.keys(row);
+              keys = keys.slice(0, keys.length - 1);
+              return (
+                <TableRow key={idx}>
+                  <TableCell component="th" scope="row">
+                    {`${row[keys[0]]}`}
+                  </TableCell>
+                  {keys
+                    .filter((key, idx) => idx > 0)
+                    .map((key, idx) => (
+                      <TableCell key={key[idx]}>{row[key]}</TableCell>
+                    ))}
+                </TableRow>
+              );
+            })}
         </TableBody>
       </Table>
     </TableContainer>

@@ -21,10 +21,7 @@ class Service {
     if (!data) {
       return [];
     }
-    if (
-      (data.idnp === undefined || data.idnp === "") &&
-      (data.tel === undefined || data.tel === "")
-    ) {
+    if (!data.idnp && !data.tel) {
       return [];
     }
     const res = await this.getResource("users");
@@ -43,7 +40,6 @@ class Service {
     let res = await this.getResource("monitoring");
 
     const doc = createMonitoringData(res);
-    console.log(JSON.stringify(doc));
     await fetch(`${this._apiBase}/monitoring`, {
       method: "POST",
       headers: {
